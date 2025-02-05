@@ -1,9 +1,11 @@
 package ru.job4j.pooh;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,19 +33,13 @@ public class PoohServer {
                             if (details.length != 3) {
                                 continue;
                             }
-                            var action = details[0];
-                            var name = details[1];
-                            var text = details[2];
+                            var action = details[0]; var name = details[1]; var text = details[2];
                             if (action.equals("intro")) {
                                 if (name.equals("queue")) {
-                                    queueSchema.addReceiver(
-                                            new SocketReceiver(text, new PrintWriter(out))
-                                    );
+                                    queueSchema.addReceiver(new SocketReceiver(text, new PrintWriter(out)));
                                 }
                                 if (name.equals("topic")) {
-                                    topicSchema.addReceiver(
-                                            new SocketReceiver(text, new PrintWriter(out))
-                                    );
+                                    topicSchema.addReceiver(new SocketReceiver(text, new PrintWriter(out)));
                                 }
                             }
                             if (action.equals("queue")) {
